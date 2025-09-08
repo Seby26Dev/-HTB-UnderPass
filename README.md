@@ -30,7 +30,7 @@ snmp-check 10.10.11.48 -c public
 > - `-c public `: for community string
 <img width="1028" height="286" alt="image" src="https://github.com/user-attachments/assets/d8717794-34fb-4ea4-984a-4fab4c1822bc" />
 
-### We try to acces the site with /daloradius , but we receive a 403 Forbidden 
+### We try to access the site with /daloradius , but we receive a 403 Forbidden 
 ```
 http://underpass.htb/daloradius/
 ```
@@ -42,11 +42,11 @@ feroxbuster -u http://underpass.htb/daloradius/
 ```
 <img width="1395" height="722" alt="image" src="https://github.com/user-attachments/assets/ec1c4498-3e34-41a6-9f6d-8936270df5aa" />
 
-### Some of them give us the same 403 Forbidden but " http://underpass.htb/daloradius/app/users/ " redirect us to a loggin page how it s not working with deffault credtials :
+### Some of them give us the same 403 Forbidden but " http://underpass.htb/daloradius/app/users/ " redirect us to a login page how it s not working with default credentials :
 
 <img width="1747" height="857" alt="image" src="https://github.com/user-attachments/assets/8cba11eb-ebef-447c-bcde-a137807277cd" />
 
-### I peek a little bit on the walk where it s giving us an article "https://kb.ct-group.com/radius-holding-post-watch-this-space" where it s mentioneted a diferent path "http://<ip-address>/daloradius/app/operators" , after trying this path we see we can connect to the main php srv with the deffault creds  
+### I peek a little bit on the Walkthrough where it s giving us an article "https://kb.ct-group.com/radius-holding-post-watch-this-space" where it s mentioneted a diferent path "http://<ip-address>/daloradius/app/operators" , after trying this path we see we can connect to the main php srv with the default credentials 
 ```
 administrator:radius
 ```
@@ -79,6 +79,7 @@ svcMosh:underwaterfriends
 
 
 <img width="767" height="315" alt="image" src="https://github.com/user-attachments/assets/0103e0c2-0b9d-497b-8906-05fdc8a0b102" />
+
 ```
 b0pK0rewoWSpfwl0ELRw0A
 ```
@@ -93,7 +94,41 @@ MOSH_KEY=b0pK0rewoWSpfwl0ELRw0A mosh-client 10.10.11.48 60004
 
 <img width="427" height="130" alt="image" src="https://github.com/user-attachments/assets/68e55560-3a1c-4da9-9f70-861d98cd1762" />
 
+______
+# Debug 
 
+###
+##
+#
+
+OK , now , why the "http://underpass.htb/daloradius/app/users/login.php" didnt work ? 
+
+```
+administrator:radius
+```
+
+## The principal ting i can see it s the CSFR Token who need to be the same generated to the curent session so , the language it s necessary in the `users/dologin.php` if one parameter is wrong , the login will fail.
+
+## But in the `operators/dologin.php` we dont have any language parameter needed the location dropdown is disabled, so the server accepts the default value. The CSRF token is still required  but the server is more permissive or accepts the default token. 
+
+<img width="1223" height="613" alt="image" src="https://github.com/user-attachments/assets/673d9fd6-2f84-4ed5-a21f-be2dc04d3f4a" />
+
+```
+login_user=administrator
+login_pass=radius
+language=en       ← required
+csrf_token=...
+```
+
+
+<img width="1235" height="645" alt="image" src="https://github.com/user-attachments/assets/71c5edc0-3c48-4e26-b8b1-ef1d4a80ea32" />
+
+
+```
+operator_user=administrator
+operator_pass=radius
+csrf_token=...
+```
 
 
 
