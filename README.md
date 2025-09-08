@@ -107,9 +107,9 @@ OK , now , why the "http://underpass.htb/daloradius/app/users/login.php" didnt w
 administrator:radius
 ```
 
-## The principal ting i can see it s the CSFR Token who need to be the same generated to the curent session so , the language it s necessary in the `users/dologin.php` if one parameter is wrong , the login will fail.
+### The principal ting i can see it s the CSFR Token who need to be the same generated to the curent session so , the language it s necessary in the `users/dologin.php` if one parameter is wrong , the login will fail.
 
-## But in the `operators/dologin.php` we dont have any language parameter needed the location dropdown is disabled, so the server accepts the default value. The CSRF token is still required  but the server is more permissive or accepts the default token. 
+### But in the `operators/dologin.php` we dont have any language parameter needed the location dropdown is disabled, so the server accepts the default value. The CSRF token is still required  but the server is more permissive or accepts the default token. 
 
 <img width="1223" height="613" alt="image" src="https://github.com/user-attachments/assets/673d9fd6-2f84-4ed5-a21f-be2dc04d3f4a" />
 
