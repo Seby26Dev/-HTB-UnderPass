@@ -1,4 +1,3 @@
-<img width="1395" height="722" alt="image" src="https://github.com/user-attachments/assets/9e56e053-670a-4975-9652-82efa34bfb99" /># -HTB-UnderPass
 
 ### Start with a nmap scan
 ```
